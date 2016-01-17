@@ -3,14 +3,17 @@ package com.github.oreissig.orsig
 import groovy.transform.CompileStatic
 
 import org.osgi.framework.Bundle
+import org.osgi.framework.BundleContext
 import org.osgi.framework.BundleException
 import org.osgi.framework.FrameworkEvent
 
+import com.github.oreissig.orsig.dummy.DummyBundleContext
 import com.github.oreissig.orsig.dummy.DummyFramework
 
 @CompileStatic
 class ORSiGFramework extends DummyFramework {
     int state
+    BundleContext bundleContext = new ORSiGBundleContext()
     
     @Override
     void start(int options = 0) {

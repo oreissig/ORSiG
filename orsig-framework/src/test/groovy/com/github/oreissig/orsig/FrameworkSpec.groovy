@@ -50,13 +50,17 @@ class FrameworkSpec extends Specification {
         framework.start()
         
         when:
-        testJars.collect { jar ->
-            framework.bundleContext.installBundle(jar)
-        }.each {
+        def bundles = testJars.collect { jar ->
+            framework.bundleContext.installBundle(jar.path)
+        }
+        bundles.each {
             it.start()
         }
         
         then:
+        bundles*.state.every { it == Bundle.ACTIVE }
+        
+        and:
         def result = framework.waitForStop(0)
         result.throwable == null
         result.type == FrameworkEvent.STOPPED

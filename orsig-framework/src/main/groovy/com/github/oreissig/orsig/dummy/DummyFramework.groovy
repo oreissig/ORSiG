@@ -6,7 +6,6 @@ import org.osgi.framework.launch.Framework
 
 @CompileStatic
 class DummyFramework implements Framework {
-    // implement all methods by throwing UnsupportedOperationException
     @Delegate
-    private final Framework UNSUPPORTED_OPERATIONS = Dummys.implement(Framework)
+    private static final Framework UNSUPPORTED_OPERATIONS = Dummys.implement(Framework)
 }
