@@ -1,0 +1,24 @@
+apply plugin: 'groovy'
+
+configurations {
+    testJars {
+        transitive = false
+    }
+}
+
+dependencies {
+    compile libs.osgi
+    compile libs.groovy
+    
+    testCompile libs.spock
+    testRuntime libs.mocking
+    testJars project(':test-api')
+    testJars project(':test-impl')
+}
+
+test {
+    dependsOn configurations.testJars
+    doFirst {
+        systemProperties['test.jars'] = configurations.testJars.asPath
+    }
+}

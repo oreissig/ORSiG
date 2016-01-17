@@ -1,0 +1,18 @@
+apply plugin: 'groovy'
+apply plugin: 'osgi'
+
+dependencies {
+    compile libs.groovy
+    compile libs.osgi
+}
+
+jar {
+    manifest {
+        version = '1.0.0'
+        name = 'Test API'
+        instruction 'Bundle-Activator', 'org.gradle.GradleActivator'
+        instruction 'Import-Package', ''
+        instruction 'Export-Package', ''
+        instruction 'Built-By', gradle.gradleVersion
+    }
+}

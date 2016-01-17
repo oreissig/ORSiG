@@ -1,0 +1,11 @@
+.gradle
+build/
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+bin/
+.project
+.classpath
+.settings
+.idea
+*.iml
