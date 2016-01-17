@@ -9,7 +9,7 @@ import org.osgi.framework.BundleException
 import com.github.oreissig.orsig.dummy.DummyBundle
 
 @CompileStatic
-class AbstractBundle extends DummyBundle{
+abstract class AbstractBundle extends DummyBundle {
     int state
     BundleContext bundleContext = new ORSiGBundleContext()
     
