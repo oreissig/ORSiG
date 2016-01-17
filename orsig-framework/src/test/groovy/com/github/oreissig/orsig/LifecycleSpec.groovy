@@ -1,7 +1,5 @@
 package com.github.oreissig.orsig
 
-import groovy.transform.NotYetImplemented
-
 import org.osgi.framework.Bundle
 import org.osgi.framework.FrameworkEvent
 import org.osgi.framework.launch.FrameworkFactory
@@ -10,7 +8,7 @@ import spock.lang.Specification
 import spock.lang.Stepwise
 
 @Stepwise
-class FrameworkSpec extends Specification {
+class LifecycleSpec extends Specification {
     static final List<File> testJars = System.properties['test.jars']
                                              .split(File.pathSeparator)
                                              *.asType(File)
@@ -42,7 +40,6 @@ class FrameworkSpec extends Specification {
         result.type == FrameworkEvent.STOPPED
     }
     
-    @NotYetImplemented
     def 'Bundles can be set up'() {
         given:
         FrameworkFactory factory = ServiceLoader.load(FrameworkFactory.class).first()
