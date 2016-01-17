@@ -4,16 +4,15 @@ apply plugin: 'osgi'
 dependencies {
     compile project(':test-api')
     compile libs.groovy
-    compile libs.osgi
+    //compile libs.osgi
 }
 
 jar {
     manifest {
         version = '1.0.0'
         name = 'Test Implementation'
-        instruction 'Bundle-Activator', 'org.gradle.GradleActivator'
-        instruction 'Import-Package', ''
+        //instruction 'Bundle-Activator', 'org.gradle.GradleActivator'
+        instruction 'Import-Package', 'com.github.oreissig.orsig.test.api'
         instruction 'Export-Package', ''
-        instruction 'Built-By', gradle.gradleVersion
     }
 }
