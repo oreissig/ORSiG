@@ -1,8 +1,7 @@
-apply plugin: 'groovy'
+apply plugin: 'java'
 apply plugin: 'osgi'
 
 dependencies {
-    compile libs.groovy
     //compile libs.osgi
 }
 
