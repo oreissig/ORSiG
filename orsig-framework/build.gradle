@@ -10,6 +10,8 @@ dependencies {
     compile libs.osgi
     compile libs.groovy
     compile libs.guava
+    compile libs.guice
+    compile libs.guice_assisted
     
     testCompile libs.spock
     testJars project(':test-api')
