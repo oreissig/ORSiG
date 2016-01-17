@@ -4,14 +4,10 @@ import org.osgi.framework.Bundle
 import org.osgi.framework.FrameworkEvent
 import org.osgi.framework.launch.FrameworkFactory
 
-import spock.lang.Specification
 import spock.lang.Stepwise
 
 @Stepwise
-class LifecycleSpec extends Specification {
-    static final List<File> testJars = System.properties['test.jars']
-                                             .split(File.pathSeparator)
-                                             *.asType(File)
+class LifecycleSpec extends AbstractORSiGSpec {
     
     def 'FrameworkFactory is registered as service'() {
         expect:

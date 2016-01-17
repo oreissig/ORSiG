@@ -9,9 +9,9 @@ dependencies {
 jar {
     manifest {
         version = '1.0.0'
-        name = 'Test Implementation'
+        name = 'Test Implementation 1'
         //instruction 'Bundle-Activator', 'org.gradle.GradleActivator'
         instruction 'Import-Package', 'com.github.oreissig.orsig.test.api'
-        instruction 'Export-Package', ''
+        //instruction 'Export-Package', ''
     }
 }

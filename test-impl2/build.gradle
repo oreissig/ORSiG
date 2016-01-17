@@ -2,15 +2,16 @@ apply plugin: 'java'
 apply plugin: 'osgi'
 
 dependencies {
+    compile project(':test-api')
     //compile libs.osgi
 }
 
 jar {
     manifest {
         version = '1.0.0'
-        name = 'Test API'
+        name = 'Test Implementation 2'
         //instruction 'Bundle-Activator', 'org.gradle.GradleActivator'
-        //instruction 'Import-Package', ''
-        instruction 'Export-Package', 'com.github.oreissig.orsig.test.api'
+        instruction 'Import-Package', 'com.github.oreissig.orsig.test.api'
+        //instruction 'Export-Package', ''
     }
 }

@@ -1,3 +1,4 @@
 include 'orsig-framework'
 include 'test-api'
-include 'test-impl'
+include 'test-impl1'
+include 'test-impl2'
