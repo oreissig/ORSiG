@@ -22,7 +22,6 @@ class FrameworkSpec extends Specification {
         loader.first() instanceof ORSiGFrameworkFactory
     }
     
-    @NotYetImplemented
     def 'Framework can be set up'() {
         given:
         FrameworkFactory factory = ServiceLoader.load(FrameworkFactory.class).first()
