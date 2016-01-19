@@ -1,6 +1,4 @@
 allprojects {
-    group = 'com.github.oreissig.orsig'
-
     repositories {
         mavenCentral()
     }
