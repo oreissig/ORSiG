@@ -18,7 +18,8 @@ class ORSiGClassloader extends ClassLoader {
         // First, check if the class has already been loaded
         Class<?> c = findLoadedClass(name)
         if (!c) {
-            c = privateJars.loadClass(name)
+            def loader = imports.find { name.startsWith(it.key) }?.value ?: privateJars
+            c = loader.loadClass(name)
         }
         return c;
     }

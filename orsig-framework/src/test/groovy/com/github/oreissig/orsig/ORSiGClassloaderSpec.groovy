@@ -1,6 +1,5 @@
 package com.github.oreissig.orsig
 
-import groovy.transform.NotYetImplemented
 
 class ORSiGClassloaderSpec extends AbstractORSiGSpec {
 
@@ -18,7 +17,6 @@ class ORSiGClassloaderSpec extends AbstractORSiGSpec {
         c.name == className
     }
     
-    @NotYetImplemented
     def 'imported classes can be loaded'() {
         given:
         def importLoader = loaderFor('test-api')
@@ -33,7 +31,6 @@ class ORSiGClassloaderSpec extends AbstractORSiGSpec {
         c.name == className
     }
     
-    @NotYetImplemented
     def 'classes are loaded from the correct origin'() {
         given:
         def privateJar = jarUrl('test-api')
