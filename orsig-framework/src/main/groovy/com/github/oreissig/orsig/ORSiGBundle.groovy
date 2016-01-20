@@ -22,7 +22,7 @@ class ORSiGBundle extends AbstractBundle {
             }
         }
         this.manifest = manifest.asImmutable()
-        loader = new URLClassLoader(file.toURI().toURL())
+        loader = new ORSiGClassloader(file.toURI().toURL())
     }
     
     @Override

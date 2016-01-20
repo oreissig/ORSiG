@@ -6,7 +6,7 @@ import spock.lang.Unroll
 
 @Stepwise
 @Unroll
-class ClassloadingSpec extends AbstractORSiGSpec {
+class DependenciesSpec extends AbstractORSiGSpec {
     
     def 'Classes without dependencies can be loaded from #name'(name,className) {
         when:
