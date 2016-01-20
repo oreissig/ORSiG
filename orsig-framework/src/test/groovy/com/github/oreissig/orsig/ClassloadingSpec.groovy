@@ -1,9 +1,6 @@
 package com.github.oreissig.orsig
 
 import groovy.transform.NotYetImplemented
-
-import org.osgi.framework.launch.Framework
-
 import spock.lang.Stepwise
 import spock.lang.Unroll
 
@@ -11,13 +8,9 @@ import spock.lang.Unroll
 @Unroll
 class ClassloadingSpec extends AbstractORSiGSpec {
     
-    @NotYetImplemented
-    def 'Test classes can be loaded from #name'(name,className) {
-        given:
-        def location = testJar(name).path
-        
+    def 'Classes without dependencies can be loaded from #name'(name,className) {
         when:
-        def bundle = framework.bundleContext.installBundle(location)
+        def bundle = install(name)
         def clazz = bundle.loadClass(className)
         
         then:
@@ -28,15 +21,30 @@ class ClassloadingSpec extends AbstractORSiGSpec {
         where:
         name         | className
         'test-api'   | 'com.github.oreissig.orsig.test.api.TestInterface'
-        'test-impl1' | 'com.github.oreissig.orsig.test.impl1.TestIncrementer1'
-        'test-impl2' | 'com.github.oreissig.orsig.test.impl2.TestIncrementer2'
+        'test-impl1' | 'com.github.oreissig.orsig.test.impl1.Pojo1'
+        'test-impl2' | 'com.github.oreissig.orsig.test.impl2.Pojo2'
     }
     
     @NotYetImplemented
-    def 'Test classes can be invoked (#name)'(name,className) {
+    def 'Dependency classes can be loaded (#name)'(name) {
         given:
-        def location = testJar(name).path
-        def bundle = framework.bundleContext.installBundle(location)
+        def bundle = install(name)
+        
+        when:
+        def clazz = bundle.loadClass('com.github.oreissig.orsig.test.api.TestInterface')
+        
+        then:
+        noExceptionThrown()
+        clazz != null
+        
+        where:
+        name << ['test-impl1', 'test-impl2']
+    }
+    
+    @NotYetImplemented
+    def 'Classes with dependencies can be loaded and invoked (#name)'(name,className) {
+        given:
+        def bundle = install(name)
         def clazz = bundle.loadClass(className)
         
         when:
@@ -54,28 +62,10 @@ class ClassloadingSpec extends AbstractORSiGSpec {
         'test-impl2' | 'com.github.oreissig.orsig.test.impl2.TestIncrementer2'
     }
     
-    @NotYetImplemented
-    def 'Common class can be loaded for all bundles (#name)'(name) {
-        given:
-        def location = testJar(name).path
-        def bundle = framework.bundleContext.installBundle(location)
-        
-        when:
-        def clazz = bundle.loadClass('com.github.oreissig.orsig.test.api.TestInterface')
-        
-        then:
-        noExceptionThrown()
-        clazz != null
-        
-        where:
-        name << ['test-api', 'test-impl1', 'test-impl2']
-    }
-    
-    @NotYetImplemented
+    // TODO this works by accident @NotYetImplemented
     def 'Other impl classes cannot be loaded (#className in #name)'(name,className) {
         given:
-        def location = testJar(name).path
-        def bundle = framework.bundleContext.installBundle(location)
+        def bundle = install(name)
         
         when:
         bundle.loadClass(className)
