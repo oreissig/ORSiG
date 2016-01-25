@@ -52,7 +52,7 @@ class ORSiGClassloaderSpec extends AbstractORSiGSpec {
         
         and:
         loader.loadClass(API_CLASS)
-              .classLoader == loader.privateJars
+              .classLoader == loader
     }
     
     def 'class hierarchies are loaded correctly (#bundle)'(bundle,clazz) {
