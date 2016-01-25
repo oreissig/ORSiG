@@ -10,7 +10,7 @@ import com.github.oreissig.orsig.dummy.DummyBundle
 
 @CompileStatic
 abstract class AbstractBundle extends DummyBundle {
-    int state
+    int state = Bundle.INSTALLED
     BundleContext bundleContext = new ORSiGBundleContext()
     
     @Override

@@ -5,7 +5,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class ORSiGClassloader extends URLClassLoader {
     
-    ORSiGClassloader(Map<String,ClassLoader> imports = [:], URL... privateJars) {
+    ORSiGClassloader(Map<String,ClassLoader> imports, URL... privateJars) {
         super(privateJars, new ImportsClassLoader(imports))
     }
     
@@ -13,9 +13,7 @@ class ORSiGClassloader extends URLClassLoader {
         final Map<String,ClassLoader> imports
         
         ImportsClassLoader(Map<String,ClassLoader> imports) {
-            // TODO replace bootstrap delegation with implicit "java" runtime bundle
-            // super(null)
-            super()
+            super(null)
             this.imports = imports
         }
         
@@ -24,9 +22,7 @@ class ORSiGClassloader extends URLClassLoader {
                 throws ClassNotFoundException {
             def loader = imports.find { name.startsWith(it.key) }?.value
             if (!loader)
-                // TODO replace parent delegation with implicit "java" runtime bundle
-                // throw new ClassNotFoundException(name)
-                loader = parent
+                throw new ClassNotFoundException(name)
             return loader.loadClass(name)
         }
     }

@@ -22,7 +22,8 @@ class ORSiGBundle extends AbstractBundle {
             }
         }
         this.manifest = manifest.asImmutable()
-        loader = new ORSiGClassloader(file.toURI().toURL())
+        // TODO parse imports
+        loader = new ORSiGClassloader([:], file.toURI().toURL())
     }
     
     @Override
