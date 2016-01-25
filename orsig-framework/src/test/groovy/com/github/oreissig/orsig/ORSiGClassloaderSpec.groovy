@@ -2,11 +2,20 @@ package com.github.oreissig.orsig
 
 
 class ORSiGClassloaderSpec extends AbstractORSiGSpec {
-
+    
+    static final String API_PKG    = 'com.github.oreissig.orsig.test.api'
+    static final String API_CLASS  = 'com.github.oreissig.orsig.test.api.TestInterface'
+    static final String IMPL1_PKG  = 'com.github.oreissig.orsig.test.impl1'
+    static final String IMPL1_IMPL = 'com.github.oreissig.orsig.test.impl1.TestImpl1'
+    static final String IMPL1_POJO = 'com.github.oreissig.orsig.test.impl1.Pojo1'
+    static final String IMPL2_PKG  = 'com.github.oreissig.orsig.test.impl2'
+    static final String IMPL2_IMPL = 'com.github.oreissig.orsig.test.impl2.TestImpl2'
+    static final String IMPL2_POJO = 'com.github.oreissig.orsig.test.impl2.Pojo2'
+    
     def 'private classes can be loaded'() {
         given:
         def privateJar = jarUrl('test-api')
-        def className = 'com.github.oreissig.orsig.test.api.TestInterface'
+        def className = API_CLASS
         
         when:
         def loader = new ORSiGClassloader(privateJar)
@@ -20,7 +29,7 @@ class ORSiGClassloaderSpec extends AbstractORSiGSpec {
     def 'imported classes can be loaded'() {
         given:
         def importLoader = loaderFor('test-api')
-        def className = 'com.github.oreissig.orsig.test.api.TestInterface'
+        def className = API_CLASS
         
         when:
         def loader = new ORSiGClassloader('':importLoader)
@@ -35,37 +44,37 @@ class ORSiGClassloaderSpec extends AbstractORSiGSpec {
         given:
         def privateJar = jarUrl('test-api')
         def imports = [
-            'com.github.oreissig.orsig.test.impl1': loaderFor('test-impl1'),
-            'com.github.oreissig.orsig.test.impl2': loaderFor('test-impl2'),
+            (IMPL1_PKG): loaderFor('test-impl1'),
+            (IMPL2_PKG): loaderFor('test-impl2'),
         ]
         def loader = new ORSiGClassloader(imports, privateJar)
         
         expect:
-        loader.loadClass('com.github.oreissig.orsig.test.impl1.Pojo1')
-              .classLoader == imports['com.github.oreissig.orsig.test.impl1']
+        loader.loadClass(IMPL1_POJO)
+              .classLoader == imports[IMPL1_PKG]
         
         and:
-        loader.loadClass('com.github.oreissig.orsig.test.impl2.Pojo2')
-              .classLoader == imports['com.github.oreissig.orsig.test.impl2']
+        loader.loadClass(IMPL2_POJO)
+              .classLoader == imports[IMPL2_PKG]
         
         and:
-        loader.loadClass('com.github.oreissig.orsig.test.api.TestInterface')
+        loader.loadClass(API_CLASS)
               .classLoader == loader.privateJars
     }
     
     def 'class hierarchies are loaded correctly'() {
         given:
         def privateJar = jarUrl('test-impl1')
-        def imports = ['com.github.oreissig.orsig.test.api': loaderFor('test-api')]
+        def imports = [(API_PKG): loaderFor('test-api')]
         def loader = new ORSiGClassloader(imports, privateJar)
         
         when:
-        def c = loader.loadClass('com.github.oreissig.orsig.test.impl1.TestImpl1')
+        def c = loader.loadClass(IMPL1_IMPL)
         
         then:
         noExceptionThrown()
-        c.simpleName == 'TestImpl1'
-        c.interfaces*.simpleName == ['TestInterface']
+        c.name == IMPL1_IMPL
+        c.interfaces*.name == [API_CLASS]
         c.classLoader != c.superclass.classLoader
     }
     
