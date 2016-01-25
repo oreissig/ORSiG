@@ -1,6 +1,5 @@
 package com.github.oreissig.orsig
 
-import groovy.transform.NotYetImplemented
 
 class ORSiGClassloaderSpec extends AbstractORSiGSpec {
 
@@ -54,7 +53,6 @@ class ORSiGClassloaderSpec extends AbstractORSiGSpec {
               .classLoader == loader.privateJars
     }
     
-    @NotYetImplemented
     def 'class hierarchies are loaded correctly'() {
         given:
         def privateJar = jarUrl('test-impl1')
@@ -67,7 +65,7 @@ class ORSiGClassloaderSpec extends AbstractORSiGSpec {
         then:
         noExceptionThrown()
         c.simpleName == 'TestImpl1'
-        c.superclass.simpleName == 'TestInterface'
+        c.interfaces*.simpleName == ['TestInterface']
         c.classLoader != c.superclass.classLoader
     }
     
