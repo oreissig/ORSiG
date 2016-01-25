@@ -10,6 +10,7 @@ class SystemBundle extends AbstractBundle {
     SystemBundle() {
         location = System.getProperty('java.home')
         loader = ClassLoader.systemClassLoader
+        start()
     }
     
     @Override
