@@ -8,8 +8,8 @@ class SystemBundle extends AbstractBundle {
     final ClassLoader loader
     
     SystemBundle() {
-        this.location = System.getProperty('java.home')
-        loader = getClass().classLoader
+        location = System.getProperty('java.home')
+        loader = ClassLoader.systemClassLoader
     }
     
     @Override
