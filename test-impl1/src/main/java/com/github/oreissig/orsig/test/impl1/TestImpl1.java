@@ -6,6 +6,6 @@ public class TestImpl1 implements TestInterface {
 
     @Override
     public int increment(int value) {
-        return value++;
+        return ++value;
     }
 }

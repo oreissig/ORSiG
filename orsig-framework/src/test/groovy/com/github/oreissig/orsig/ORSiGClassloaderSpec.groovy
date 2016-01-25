@@ -1,6 +1,8 @@
 package com.github.oreissig.orsig
 
+import spock.lang.Unroll
 
+@Unroll
 class ORSiGClassloaderSpec extends AbstractORSiGSpec {
     
     def 'private classes can be loaded'() {
@@ -53,20 +55,28 @@ class ORSiGClassloaderSpec extends AbstractORSiGSpec {
               .classLoader == loader.privateJars
     }
     
-    def 'class hierarchies are loaded correctly'() {
+    def 'class hierarchies are loaded correctly (#bundle)'(bundle,clazz) {
         given:
-        def privateJar = jarUrl('test-impl1')
+        def privateJar = jarUrl(bundle)
         def imports = [(API_PKG): loaderFor('test-api')]
         def loader = new ORSiGClassloader(imports, privateJar)
         
         when:
-        def c = loader.loadClass(IMPL1_IMPL)
+        def c = loader.loadClass(clazz)
         
         then:
         noExceptionThrown()
-        c.name == IMPL1_IMPL
+        c.name == clazz
         c.interfaces*.name == [API_CLASS]
         c.classLoader != c.superclass.classLoader
+        
+        and:
+        c.newInstance().increment(3) == 4
+        
+        where:
+        bundle       | clazz
+        'test-impl1' | IMPL1_IMPL
+        'test-impl2' | IMPL2_IMPL
     }
     
     def 'bundle cannot load classes from its users'() {
