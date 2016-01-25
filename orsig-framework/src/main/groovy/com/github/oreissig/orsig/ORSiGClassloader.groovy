@@ -13,7 +13,6 @@ class ORSiGClassloader extends URLClassLoader {
         final Map<String,ClassLoader> imports
         
         ImportsClassLoader(Map<String,ClassLoader> imports) {
-            super(null)
             this.imports = imports
         }
         
