@@ -16,6 +16,15 @@ class AbstractORSiGSpec extends Specification {
                                              .split(File.pathSeparator)
                                              *.asType(File)
     
+    static final String API_PKG    = 'com.github.oreissig.orsig.test.api'
+    static final String API_CLASS  = 'com.github.oreissig.orsig.test.api.TestInterface'
+    static final String IMPL1_PKG  = 'com.github.oreissig.orsig.test.impl1'
+    static final String IMPL1_IMPL = 'com.github.oreissig.orsig.test.impl1.TestImpl1'
+    static final String IMPL1_POJO = 'com.github.oreissig.orsig.test.impl1.Pojo1'
+    static final String IMPL2_PKG  = 'com.github.oreissig.orsig.test.impl2'
+    static final String IMPL2_IMPL = 'com.github.oreissig.orsig.test.impl2.TestImpl2'
+    static final String IMPL2_POJO = 'com.github.oreissig.orsig.test.impl2.Pojo2'
+    
     File testJar(String name) {
         testJars.find { it.name.contains(name) }
     }
