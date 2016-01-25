@@ -78,6 +78,42 @@ class ORSiGClassloaderSpec extends AbstractORSiGSpec {
         c.classLoader != c.superclass.classLoader
     }
     
+    def 'bundle cannot load classes from its users'() {
+        given:
+        def dependencyJar = jarUrl('test-api')
+        def dependencyLoader = new ORSiGClassloader(dependencyJar)
+        
+        def userJar = jarUrl('test-impl1')
+        def userLoader = new ORSiGClassloader([(API_PKG): dependencyLoader], userJar)
+        
+        expect:
+        dependencyLoader.loadClass(API_CLASS)
+        userLoader.loadClass(API_CLASS)
+        userLoader.loadClass(IMPL1_IMPL)
+        
+        when:
+        dependencyLoader.loadClass(IMPL1_IMPL)
+        then:
+        thrown(ClassNotFoundException)
+    }
+    
+    def 'transitive dependencies cannot be loaded'() {
+        given:
+        def transitiveDepJar = jarUrl('test-api')
+        def transitiveDepLoader = new ORSiGClassloader(transitiveDepJar)
+        
+        def directDepJar = jarUrl('test-impl1')
+        def directDepLoader = new ORSiGClassloader([(API_PKG): transitiveDepLoader], directDepJar)
+        
+        def userJar = jarUrl('test-impl2')
+        def userLoader = new ORSiGClassloader([(IMPL1_PKG): directDepLoader], userJar)
+        
+        when:
+        userLoader.loadClass(API_CLASS)
+        then:
+        thrown(ClassNotFoundException)
+    }
+    
     private URL jarUrl(String name) {
         testJar(name).toURI().toURL()
     }
