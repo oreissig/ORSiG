@@ -10,6 +10,6 @@ class ORSiGFrameworkFactory implements FrameworkFactory {
 
     @Override
     Framework newFramework(Map<String, String> configuration) {
-        return new ORSiGFramework()
+        return DaggerORSiGComponent.create().framework
     }
 }

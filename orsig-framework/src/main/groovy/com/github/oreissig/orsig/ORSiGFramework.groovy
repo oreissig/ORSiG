@@ -2,6 +2,8 @@ package com.github.oreissig.orsig
 
 import groovy.transform.CompileStatic
 
+import javax.inject.Inject
+
 import org.osgi.framework.Bundle
 import org.osgi.framework.BundleException
 import org.osgi.framework.FrameworkEvent
@@ -13,6 +15,9 @@ import com.google.common.eventbus.EventBus
 @CompileStatic
 class ORSiGFramework extends AbstractBundle implements Framework {
     private EventBus bus = null
+    
+    @Inject
+    ORSiGFramework() {}
     
     @Override
     void start(int options = 0) {

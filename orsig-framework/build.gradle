@@ -10,6 +10,7 @@ dependencies {
     compile libs.osgi
     compile libs.groovy
     compile libs.guava
+    compile libs.dagger2
     
     testCompile libs.spock
     testJars project(':test-api')
