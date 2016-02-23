@@ -27,12 +27,13 @@ class ORSiGFramework extends AbstractBundle implements Framework {
         state = Bundle.RESOLVED
     }
     
+    @Override
     void init(FrameworkListener... listeners = []) throws BundleException {
         // TODO do nothing for now
     }
     
     @Override
     FrameworkEvent waitForStop(long timeout) throws InterruptedException {
-        return new FrameworkEvent(FrameworkEvent.STOPPED, this)
+        return new FrameworkEvent(FrameworkEvent.STOPPED, this, null)
     }
 }
