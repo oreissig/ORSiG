@@ -9,6 +9,7 @@ configurations {
 dependencies {
     compile libs.osgi
     compile libs.groovy
+    compile libs.guava
     
     testCompile libs.spock
     testRuntime libs.mocking
