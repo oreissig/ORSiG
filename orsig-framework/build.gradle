@@ -12,7 +12,6 @@ dependencies {
     compile libs.guava
     
     testCompile libs.spock
-    testRuntime libs.mocking
     testJars project(':test-api')
     testJars project(':test-impl1')
     testJars project(':test-impl2')
