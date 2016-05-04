@@ -10,7 +10,8 @@ dependencies {
     compile libs.osgi
     compile libs.groovy
     compile libs.guava
-    compile libs.dagger2
+    compile libs.dagger2_runtime
+    compileOnly libs.dagger2_compiler
     
     testCompile libs.spock
     testJars project(':test-api')

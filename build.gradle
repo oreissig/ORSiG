@@ -7,7 +7,8 @@ allprojects {
     libs.osgi = 'org.osgi:org.osgi.core:6.0.0'
     libs.groovy = 'org.codehaus.groovy:groovy-all:2.4.6:indy'
     libs.guava = 'com.google.guava:guava:19.0'
-    libs.dagger2 = 'com.google.dagger:dagger-compiler:2.4'
+    libs.dagger2_runtime = 'com.google.dagger:dagger:2.4'
+    libs.dagger2_compiler = 'com.google.dagger:dagger-compiler:2.4'
     libs.spock = dependencies.create('org.spockframework:spock-core:1.0-groovy-2.4') {
         exclude module: 'groovy-all' // use indy version instead
     }
